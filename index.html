@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NightRespawn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'cz-dark': '#121212',
+              'cz-gray-dark': '#1a1a1a',
+              'cz-gray': '#2a2a2a',
+              'cz-gray-light': '#3c3c3c',
+              'cz-text': '#d1d5db',
+              'cz-text-dark': '#9ca3af',
+              'cz-primary': '#3b82f6',
+              'cz-primary-hover': '#2563eb',
+            },
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^18.2.0/",
+    "react": "https://aistudiocdn.com/react@^18.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^18.2.0/",
+    "@google/genai": "https://aistudiocdn.com/google-genai@0.11.2",
+    "@prisma/client": "https://aistudiocdn.com/@prisma/client@^6.19.0",
+    "process": "https://aistudiocdn.com/process@^0.11.10",
+    "jsonwebtoken": "https://aistudiocdn.com/jsonwebtoken@^9.0.2",
+    "dotenv/": "https://aistudiocdn.com/dotenv@^17.2.3/",
+    "zod": "https://aistudiocdn.com/zod@^4.1.12",
+    "express-rate-limit": "https://aistudiocdn.com/express-rate-limit@^8.2.1",
+    "cors": "https://aistudiocdn.com/cors@^2.8.5",
+    "helmet": "https://aistudiocdn.com/helmet@^8.1.0",
+    "zod-express-middleware": "https://aistudiocdn.com/zod-express-middleware@^1.4.0",
+    "express": "https://aistudiocdn.com/express@^5.1.0",
+    "argon2": "https://aistudiocdn.com/argon2@^0.44.0",
+    "cookie-parser": "https://aistudiocdn.com/cookie-parser@^1.4.7"
+  }
+}
+</script>
+<style>
+html {
+  font-size: 90%;
+}
+
+/* New animated button styles */
+.button {
+  position: relative;
+  width: 90px;
+  height: 32px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  padding: 7px;
+  border-radius: 7px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -4px;
+  top: -1px;
+  margin: auto;
+  width: 98px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #121212, #1d4ed8, #3b82f6, #1d4ed8, #121212);
+  z-index: -10;
+  pointer-events: none;
+  animation: rotate 2s linear infinite;
+}
+
+.button::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, #121212, #1d4ed8, #3b82f6, #1d4ed8, #121212);
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+}
+
+.button:hover::after {
+  filter: blur(30px);
+}
+
+.button:hover::before {
+  animation-play-state: paused;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+</head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
