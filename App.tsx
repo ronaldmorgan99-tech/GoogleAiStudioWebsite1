@@ -25,7 +25,24 @@ const App: React.FC = () => {
         // This is a simplified fetch; a real SDK would handle this
         const res = await fetch('/api/me', { credentials: 'include' });
         if (res.ok) {
-          const data = await res.json();
+          // Safely parse JSON (handles empty bodies)
+          const { default: safeJson } = await import('./web/utils/safeJson').catch(() => ({} as any));
+          let data: any = null;
+          try {
+            if (safeJson) {
+              data = await safeJson(res);
+            } else {
+              const text = await res.text();
+              if (text) data = JSON.parse(text);
+            }
+          } catch (e) {
+            console.error('Failed to parse /api/me response', e);
+            data = null;
+          }
+          if (!data) {
+            setCurrentUser(null);
+            return;
+          }
           // Map API user to frontend User type
           const user: User = {
             id: data.user.id,

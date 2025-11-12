@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import safeJson from './utils/safeJson';
 
 const API_BASE = '/api'; // Uses Vite proxy
 
@@ -78,14 +79,19 @@ class ApiClient {
     try {
       const response = await fetch(`${API_BASE}${endpoint}`, config);
 
+      const parsed = await safeJson(response);
+
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData: any = parsed ?? { detail: response.statusText };
         console.error('API Error:', errorData);
         throw new Error(errorData.detail || 'An API error occurred');
       }
 
-      const data = await response.json();
-      return schema.parse(data); // Validate and return
+      if (parsed === null) {
+        return null as unknown as T;
+      }
+
+      return schema.parse(parsed); // Validate and return
     } catch (error) {
       console.error(`Request failed for endpoint: ${endpoint}`, error);
       if (error instanceof z.ZodError) {
