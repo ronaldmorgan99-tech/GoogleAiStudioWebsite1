@@ -55,7 +55,14 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, currentUser, o
       <header className="bg-cz-gray-dark shadow-md relative pb-5">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
+              <video 
+                src="/generated_video_hd.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                className="h-12 w-auto object-cover rounded-md"
+              />
               <a href="#" onClick={(e) => handleNavClick(e, 'Forums')} className="text-white font-bold text-2xl tracking-wider">
                 Night<span className="text-cz-primary">Respawn</span>
               </a>
