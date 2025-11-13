@@ -1,6 +1,6 @@
 // @ts-nocheck - this file intentionally uses flexible types and raw queries.
 import prisma from '../../prisma';
-import { Role } from '@prisma/client';
+import { Role, Prisma } from '@prisma/client';
 
 /**
  * Aggregates all data required for the main forums landing page.
